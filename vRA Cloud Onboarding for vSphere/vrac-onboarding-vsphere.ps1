@@ -2,7 +2,7 @@
 
 #    ===========================================================================
 #    Created by:    Munishpal Makhija
-#    Release Date:  03/21/2020
+#    Release Date:  03/23/2020
 #    Organization:  VMware
 #    Version:       1.0
 #    Blog:          http://bit.ly/MyvBl0g
@@ -10,36 +10,9 @@
 #    ===========================================================================
 
 
-####################### Use Case #########################
-
-######	Onboarding vSphere Cloud Account in vRA Cloud Environment / Org
-
-######	It performs following configuration  
-
-######	Validate vCenter Details & Adds Cloud Account
-######	Create New vRA Project
-######	Create New vRA Flavor Profile
-######	Create New vRA Image Profile
-######	Create New vRA Network Profile
-######	Create New vRA Storage Profile
-######	Create New vRA Blueprint
-######	Create New vRA Deployment
-
-####################### Pre-requisites #########################
-
-######	1 - PowervRACloud Version 1.1 
-######	2 - Connected to vRA Cloud using Connect-vRA-Cloud -APIToken $APIToken
-
-
-####################### Usage #########################
-
-######	Download the script and save it to a Folder and execute ./vRACloudDeploymentsReport.ps1
-
-
-
 ####################### Dont Modify anything below this line #########################
 
-Import-CSV ./vracloudenvironment.csv | ForEach-Object { 
+Import-CSV ./vrac-environment-vsphere.csv | ForEach-Object { 
 	$cloudproxyname = $_.cloudproxyname
 	$vCenterIP = $_.vc
 	$vcenterdcname = $_.datacentername
@@ -66,11 +39,13 @@ Import-CSV ./vracloudenvironment.csv | ForEach-Object {
 	
 	New-vRA-CloudAccount-vSphere -vCenterHostName $vCenterIP -Credential $vccredential -vCenterDCName $vcenterdcname -CloudProxyName $cloudproxyname -CloudAccountName $cloudaccountname | Out-Null
 
+	Write-Host "Creating New Cloud Account:  " $cloudaccountname -ForegroundColor Green
+	
+	Start-Sleep -Seconds 15	
+
 	##### Add New Project #####
 
 	Write-Host "Creating New Project:  " $projectname -ForegroundColor Green
-	
-	Start-Sleep -Seconds 5
 	
 	$cloudzone = Get-vRA-CloudZones | where {$_.name -match $vCenterIP}
 	$cloudzonename = $cloudzone.name
