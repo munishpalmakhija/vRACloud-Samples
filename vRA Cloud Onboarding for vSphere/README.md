@@ -1,4 +1,4 @@
-#Use Case 
+# Use Case 
 
 Onboarding vSphere Cloud Account in vRA Cloud Environment / Org
 
@@ -15,13 +15,13 @@ It performs following configuration
 7.	Create New vRA Blueprint
 8.	Create New vRA Deployment
 
-#Pre-requisites 
+# Pre-requisites 
 
 1.	PowervRACloud Version 1.1 
 2.	Connected to vRA Cloud using Connect-vRA-Cloud -APIToken $APIToken
 
 
-#Usage
+# Usage
 
 1.	Download the script & csv file in a Folder 
 2.	Modify the csv file with your environment details 
